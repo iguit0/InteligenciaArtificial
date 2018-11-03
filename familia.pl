@@ -1,3 +1,21 @@
+/* Considere o predicado progenitor(A, B), que representa que A é progenitor (i.e.,
+pai ou mãe) de B. Além disso, considere também os predicados mulher(A) e
+homem(B) para indicar o gênero da pessoa. Faça um conjunto de regras que modelem
+as relações familiares entre:
+• pai, mãe
+• filho, filha
+• avô, avó
+• irmão, irmã
+• tio, tia
+• primo, prima
+• sobrinho, sobrinha
+
+Em seguida, crie fatos com seus familiares e utilize o Prolog para fazer consultas
+sobre as relações criadas. Dentre elas:
+• Quem é pai, mãe, tio, tia?
+• Qual a relação deles com você?
+• Quais as relações entre eles? */
+
 homem(lucio).
 progenitor(lucio,igor).
 progenitor(lucio,gustavo).
