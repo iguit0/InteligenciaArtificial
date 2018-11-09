@@ -30,15 +30,24 @@ remove_x(X,[X|T], L)      :- remove_x(X,T,L).
 remove_x(X,[C|T], [C|T1]) :- X \= C, remove_x(X,T,T1).
 
 % Indique se a lista possui tamanho par ou ímpar
-% ...
+par([]).
+par([_,_|T]) :- par(T).
+impar([_|T]) :- par(T).
 
 % Inverta os elementos de uma lista
-% ...
+add(X,L,[X|L]).
+last(X,[X]).
+last(X,[_|R]):- last(X, R).
+del_ultimo([_], []) :- !.
+del_ultimo([H|T], [H| Tf]) :- del_ultimo(T,Tf).
+lshift([], []).
+lshift(L,Lf) :- last(X,L), del_ultimo(L,L3), add(X,L3,Lf), !.
+inverso([], []). inverso([H|T], Lf) :- last(X, Lf), X = H, del_ultimo(Lf,L3), inverso(T, L3), !.
 
 % Indique se uma lista é subconjunto de outra
 % ...
 
-% Questao 6 - segunda lista
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Verificar se um elemento pertence alguma lista
 pertence(Elem,[Elem|_ ]).
 pertence(Elem,[ _| Cauda]) :- pertence(Elem,Cauda).
@@ -57,3 +66,4 @@ concatena([Cab|Cauda],L2,[Cab|Resultado]) :- concatena(Cauda,L2,Resultado).
 inserir_final([], Y, [Y]).         % Se a lista estava vazia, o resultado é [Y]
 inserir_final([I|R], Y, [I|R1]) :- % Senão, o primeiro elemento é igual, e o resto é obtido
     inserir_final(R, Y, R1).       % Inserindo o elemento Y no final do antigo resto
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
