@@ -29,13 +29,13 @@ remove_x(_,[],[]).
 remove_x(X,[X|T], L)      :- remove_x(X,T,L).
 remove_x(X,[C|T], [C|T1]) :- X \= C, remove_x(X,T,T1).
 
-%Indique se a lista possui tamanho par ou ímpar
+% Indique se a lista possui tamanho par ou ímpar
 % ...
 
 % Inverta os elementos de uma lista
 % ...
 
-%Indique se uma lista é subconjunto de outra
+% Indique se uma lista é subconjunto de outra
 % ...
 
 % Questao 6 - segunda lista
@@ -47,11 +47,6 @@ pertence(Elem,[ _| Cauda]) :- pertence(Elem,Cauda).
 insere_primeiro(X,Y,[X|Y]).
 insere_primeiro(X,[Cab|Resto],[X|[Cab|Resto]]).
 
-insereInicio(H, L, [H|L]):- !.
-inserePrimeira(X,L,[X|L]).
-insere(X,L, [X|L]).
-
-
 % Retirar Elemento
 retirar_elemento(Elem,[Elem|Cauda],Cauda).
 retirar_elemento(Elem,[Cab|Cauda],[Cab|Resultado]) :- retirar_elemento(Elem,Cauda,Resultado).
@@ -62,4 +57,3 @@ concatena([Cab|Cauda],L2,[Cab|Resultado]) :- concatena(Cauda,L2,Resultado).
 inserir_final([], Y, [Y]).         % Se a lista estava vazia, o resultado é [Y]
 inserir_final([I|R], Y, [I|R1]) :- % Senão, o primeiro elemento é igual, e o resto é obtido
     inserir_final(R, Y, R1).       % Inserindo o elemento Y no final do antigo resto
-
