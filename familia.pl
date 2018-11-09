@@ -1,4 +1,4 @@
-/* Considere o predicado progenitor(A, B), que representa que A é progenitor (i.e.,
+﻿/* Considere o predicado progenitor(A, B), que representa que A é progenitor (i.e.,
 pai ou mãe) de B. Além disso, considere também os predicados mulher(A) e
 homem(B) para indicar o gênero da pessoa. Faça um conjunto de regras que modelem
 as relações familiares entre:
@@ -34,7 +34,12 @@ progenitor(clarinda,lucio).
 pai(X,Y) :- homem(X), progenitor(X,Y).
 mae(X,Y) :- mulher(X), progenitor(X,Y).
 filho(X,Y) :- homem(X), progenitor(Y,X).
+filha(X,Y) :- mulher(X), progenitor(Y,X).
 irmao(A,B) :- homem(A), progenitor(C,A), progenitor(C,B), A \== B.
 irma(A,B) :- mulher(A), progenitor(C,A), progenitor(C,B), A \== B.
-abuelo(X,Y) :- homem(X), progenitor(X,Z), progenitor(Z,Y).
-abuela(X,Y) :- mulher(X), progenitor(X,Z), progenitor(Z,Y).
+abuelo(X,Y) :- homem(X), progenitor(X,Z), progenitor(Z,Y). %avô
+abuela(X,Y) :- mulher(X), progenitor(X,Z), progenitor(Z,Y). %avó
+primo(X,Y) :- homem(X), progenitor(T,X), progenitor(P,Y), irmao(T,P) ; irma(T,P).
+prima(X,Y) :- mulher(X), progenitor(T,X), progenitor(P,Y), irmao(T,P).
+tio(X,Y) :- progenitor(P,Y), irmao(X,P).
+tia(X,Y) :- progenitor(P,Y), irma(X,P).
