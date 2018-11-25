@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<script src="assets/js/script.js"></script>
+		<title>Projeto IA – Pokemon</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" href="assets/icon/favicon.ico" type="image/x-icon">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+		<!-- Estilo customizado -->
+		<link rel="stylesheet" href="assets/css/style.css">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+	</head>
+<body id="bgFundo">
+	<div id="tudo">
+		<header id="header">
+			<div id="titulo">Projeto IA – Pokémon</div>
+			<h5 id="subtitulo">Desenvolvido por: Igor & Gabriel</h5>
+		</header>
+		<div id="conteudo">
+			<label id="label">Caminho encontrado:</label>
+			<textarea id="input">[[[cam, cam, ash, cam, cam], [pokemon1, cam, pokemon2, cam, cam], [pokebola, cam ,cam,cam,cam], [cam,cam,pokemon3,cam,cam], [cam,cam,cam,cam,obj]],
+[[cam, ash, cam, cam, cam], [pokemon1, cam, pokemon2, cam, cam], [pokebola, cam ,cam,cam,cam], [cam,cam,pokemon3,cam,cam],[cam,cam,cam,cam,obj]],[[ash, cam, cam, cam, cam], [pokemon1, cam, pokemon2, cam, cam], [pokebola, cam ,cam,cam,cam], [cam,cam,pokemon3,cam,cam], [cam,cam,cam,cam,obj]]]</textarea>
+
+			<div id="menu">
+				<input id="gerar" class="btn btn-primary btn-md" type="button" value="Gerar" onClick="gerarMapa()">
+				<input class="btn btn-success btn-md" type="button" value="Próximo Estado" onClick="proximo();">
+				<input class="btn btn-warning btn-md" type="button" value="Estado Anterior" onClick="anterior();">
+				<p id="passos"> </p>
+			</div>
+
+			<div id="mapa"></div>
+
+
+		</div>
+	</div>
+			<script type="text/javascript">
+$(document).ready(function(){
+$("button").click(function(){
+    $("mapa").animate({left: '250px'});
+}); 
+});
+		</script>
+</body>
+</html>
