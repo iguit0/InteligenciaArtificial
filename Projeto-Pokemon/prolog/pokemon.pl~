@@ -105,9 +105,9 @@ find(El, [_|T], X):-
 %Archive the solution, to show in a Web application
 archive(Solution, Pkm, Pkb):-
     open("exit.txt",write, Stream),
-    ( writeln(Stream, Solution),
-      writeln(Stream, Pkm),
-      writeln(Stream, Pkb),
+    ( write(Stream, Solution),
+      write(Stream, Pkm),
+      write(Stream, Pkb),
      fail ; true),
     close(Stream).
 
