@@ -49,6 +49,7 @@ estende(_,[],_,_).
 
 conditions(Estado, Sucessor,Pkm, Pkb, Caminho):-
 	s(Estado,Sucessor),  %Qualifica se o sucessor e valido, com os limites
+<<<<<<< HEAD
 	on(Pkb, [Estado|Caminho]),
 	not(on(Sucessor,[Estado|Caminho])),
 	%Para nao gerar ciclos
@@ -78,6 +79,21 @@ conditions(Estado, Sucessor, Pkm,Pkb, Caminho):-
 	writeln("").*/
 
 
+=======
+	not(on(Sucessor,[Estado|Caminho])),
+	%Para nao gerar ciclos
+	not(on(Sucessor, Pkm)).   %Estou pisando em um  pokemon
+       % on(Pkb, Caminho).    %Ja passei pela pokebola antes, entao ta de boa
+
+%!	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FATLA CIAR OPCAO DE QUANDO JA PASSOU NA POKEBOLA
+
+/*
+conditions(Estado, Sucessor, Pkm,Pkb, Caminho):-
+	not(on(Sucessor,[Estado|Caminho])), %Para nao gerar ciclos
+	s(Estado,Sucessor),  %Qualifica se o sucessor e valido.
+	not(on(Sucessor,Pkm)). %Se nao estou pisando em pokemon, entao de boa
+*/
+>>>>>>> f279301d6ee119d90f3cf32f7b292f4fba8d1fbc
 
 
 %Busca por largura
@@ -102,6 +118,7 @@ find(El, [_|T], X):-
 	find(El, T, R),
 	X = R.
 
+<<<<<<< HEAD
 %Archive the solution, to show in a Web application
 archive(Solution, Pkm, Pkb):-
     open("exit.txt",write, Stream),
@@ -113,6 +130,8 @@ archive(Solution, Pkm, Pkb):-
 
 
 
+=======
+>>>>>>> f279301d6ee119d90f3cf32f7b292f4fba8d1fbc
 %Path walked, list of pokemons, Result
 howMany(_,  [], 0).
 howMany(List, [Pkm|T], Res):-
@@ -120,18 +139,33 @@ howMany(List, [Pkm|T], Res):-
 	howMany(List, T, R3),
 	Res is R2 + R3.
 
+<<<<<<< HEAD
 %Main func
 main(StartingPoint, Pkm, Pkb, Obj, Solution):-
         search(StartingPoint, Solution, Pkm, Pkb, Obj), %search from pokeball until end
 	%join(Solution2, Solution3, Solution),
+=======
+
+
+%Main func
+main(StartingPoint, Pkm, Pkb, Obj, Solution):-
+	%search(StartingPoint, Solution, Pkm, Pkb, Pkb), %search from start until pokeball
+        search(StartingPoint, Solution, Pkm, Pkb, Obj), %search from pokeball until end
+	%join(Solution2, Solution3, Solution),
+
+>>>>>>> f279301d6ee119d90f3cf32f7b292f4fba8d1fbc
 	write("Pokemons, nos quadrantes: "), writeln(Pkm),
 	write("Pokebola no quadrante: "),  writeln(Pkb),
 	howMany(Solution, Pkm, Captured),
 	write("Pokemons capturados: "),   writeln(Captured),
 	obj(I),
 	write("Insignia no quadrante: "),    writeln(I),
+<<<<<<< HEAD
 	write("Caminho do Ash: "),
 	archive(Solution, Pkm, Pkb),!.
+=======
+	write("Caminho do Ash: "), !.
+>>>>>>> f279301d6ee119d90f3cf32f7b292f4fba8d1fbc
 
 %Call this function and then press "W", to show all vector.
 %After that, you (in the same prompt) can call "main" function
@@ -141,6 +175,7 @@ err(X):-
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -150,3 +185,5 @@ err(X):-
 
 
 
+=======
+>>>>>>> f279301d6ee119d90f3cf32f7b292f4fba8d1fbc
