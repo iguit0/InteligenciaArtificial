@@ -17,13 +17,13 @@ on(E, [_|T]):- on(E, T).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%insert in lists head
+% Insere no inicio
 ins(E, [], [E]):- !.
 ins(E, List, [E|List]):- !.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Swapping sides of lists
+% inverter lista
 inv([],[]).
 inv([E|C], Linv):-
 	inv(C,C_Inv),
@@ -31,7 +31,7 @@ inv([E|C], Linv):-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%join two lists
+% Concatena duas listas (junta duas listas)
 join([],L,L).
 join([H|T],L2,[H|T2]) :- join(T,L2,T2).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -39,19 +39,19 @@ join([H|T],L2,[H|T2]) :- join(T,L2,T2).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%[ Movimenta o agente pelo cenário ]%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Rules about to walk
-%right
+%Regras de sucessao de estados (movimentacao)
+%direita
 s([X,Y], [X,Yout]):- Y<4, Yout is Y + 1.
-%left
+%esquerda
 s([X,Y], [X,Yout]):- Y>0, Yout is Y - 1.
-%up
+%cima
 s([X,Y], [Xout,Y]):- X>0, Xout is X - 1.
-%down
+%baixo
 s([X,Y], [Xout,Y]):- X<4, Xout is X + 1.
 
 
 %Objectives
-obj([4,4]).
+%obj([4,4]).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -69,62 +69,44 @@ estende([Estado|Caminho],ListaSucessores, Pkm, Pkb):-
 estende(_,[],_,_). %se o estado não tiver sucessor, falha e não procura mais
 
 
-
 conditions(Estado, Sucessor,Pkm, Pkb, Caminho):-
 	s(Estado,Sucessor),  %Qualifica se o sucessor e valido, com os limites
 	on(Pkb, [Estado|Caminho]),
 	not(on(Sucessor,[Estado|Caminho])),
 	%Para nao gerar ciclos
         on(Sucessor, Pkm).   %Estou pisando em um  pokemon
-	/*writeln("Condition 1"),
-	write("Estou em: "), writeln(Estado).
-	write("caminho: "), writeln(Caminho),
-	write("pokebola : "), writeln(Pkb),
-	write("Sucessor: "), writeln(Sucessor),
-	writeln("")*/
-
-
-            %Ja passei pela pokebola antes, entao ta de boa
-
-%!	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FATLA CIAR OPCAO DE QUANDO JA PASSOU NA POKEBOLA
 
 
 conditions(Estado, Sucessor, Pkm,_, Caminho):-
 	s(Estado,Sucessor), %Qualifica se o sucessor e valido.
 	not(on(Sucessor,[Estado|Caminho])), %Para nao gerar ciclos
 	not(on(Sucessor,Pkm)). %Se nao estou pisando em pokemon, entao de boa
-	/*writeln("Condition 2"),
-	write("Estou em: "), writeln(Estado).
-	write("caminho: "), writeln(Caminho),
-	write("pokebola : "), writeln(Pkb),
-	write("Sucessor: "), writeln(Sucessor),
-	writeln("").*/
 
 
-%Busca por largura
+% Busca por largura
 solucao_bl(Inicial,Solucao, Pkm, Pkb, Obj) :- bl([[Inicial]],Solucao, Pkm, Pkb, Obj).
-%falha ao encontrar a meta, então estende o primeiro estado até seus sucessores e os coloca no final da lista de fronteira
+% falha ao encontrar a meta, então estende o primeiro estado até seus sucessores e os coloca no final da lista de fronteira
 bl([[Estado|Caminho]|_],[Estado|Caminho],_,_, Obj) :- Estado=Obj.
 bl([Primeiro|Outros], Solucao, Pkm, Pkb, Obj) :- estende(Primeiro,Sucessores, Pkm, Pkb),
 join(Outros,Sucessores,NovaFronteira),
 bl(NovaFronteira,Solucao, Pkm, Pkb, Obj).
 
-%Searching
-%searching without objectives = WIN
+% Searching
+% searching without objectives = WIN
 %search(_, [],_,_).
 % Receive: start Coord, RETURN, list of pokemon Coord, PkbList, Obj
 %
 search(Start, Solution, Pkm, Pkb, Obj):-
 	solucao_bl(Start, SolutionTmp, Pkm, Pkb, Obj), inv(SolutionTmp, Solution).
 
-%How Many pokemons did I get
+% How Many pokemons did I get
 find(_, [], 0).
 find(El, [El|_], 1).
 find(El, [_|T], X):-
 	find(El, T, R),
 	X = R.
 
-%Archive the solution, to show in a Web application
+% Saída do caminho final em arquivo
 archive(Solution, Pkm, Pkb):-
     open("exit.txt",write, Stream),
     ( writeln(Stream, Solution),
