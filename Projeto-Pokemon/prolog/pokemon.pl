@@ -1,3 +1,44 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% UNIVERSIDADE FEDERAL DE VICOSA - CAMPUS RIO PARANAIBA
+% DESENVOLVIDO PELOS ALUNOS: IGOR LUCIO & GABRIEL ALVES
+% POKEMON - BUSCA NO ESPACO DE ESTADOS
+% AJUDE ASH A ENCONTRAR A INSIGNIA
+% https://github.com/iguit0/Inteligencia-Artificial
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%[ Funções de Lista ]%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%That element belongs to list?
+on(E, [E|_]).
+on(E, [_|T]):- on(E, T).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%insert in lists head
+ins(E, [], [E]):- !.
+ins(E, List, [E|List]):- !.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Swapping sides of lists
+inv([],[]).
+inv([E|C], Linv):-
+	inv(C,C_Inv),
+	join(C_Inv,[E], Linv).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%join two lists
+join([],L,L).
+join([H|T],L2,[H|T2]) :- join(T,L2,T2).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%[ Movimenta o agente pelo cenário ]%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Rules about to walk
 %right
 s([X,Y], [X,Yout]):- Y<4, Yout is Y + 1.
@@ -12,29 +53,11 @@ s([X,Y], [Xout,Y]):- X<4, Xout is X + 1.
 %Objectives
 obj([4,4]).
 
-%That element belongs to list?
-on(E, [E|_]).
-on(E, [_|T]):- on(E, T).
 
-
-
-%insert in lists head
-ins(E, [], [E]):- !.
-ins(E, List, [E|List]):- !.
-
-%Swapping sides of lists
-inv([],[]).
-inv([E|C], Linv):-
-	inv(C,C_Inv),
-	join(C_Inv,[E], Linv).
-
-
-%join two lists
-join([],L,L).
-join([H|T],L2,[H|T2]) :- join(T,L2,T2).
-
-
-%Im not sure what this #### does, but you know... Thats life
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%[ Funções de Busca em Largura ]%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%metodo que faz a extensao do caminho até os nos filhos do estado
 estende([Estado|Caminho],ListaSucessores, Pkm, Pkb):-
 	% Retorna uma lista chamada (listSsucessores)contendo todos os objetos
         % de ([Sucessor,Estado|Caminho]) que satisfazem as condicoes inpostas na linha de condicoes
@@ -42,8 +65,8 @@ estende([Estado|Caminho],ListaSucessores, Pkm, Pkb):-
 	        %A linha abaixo, linhas de condicoes
 	        %(  s(Estado,Sucessor),not(on(Sucessor,[Estado|Caminho])) ), %<-	                     %A linha acima, linha de condicoes
 		(  conditions(Estado, Sucessor, Pkm, Pkb, Caminho) ),
-	      ListaSucessores),!. %Retorna uma lista de sucessores validos
-estende(_,[],_,_).
+	      ListaSucessores),!. % Retorna uma lista de sucessores validos
+estende(_,[],_,_). %se o estado não tiver sucessor, falha e não procura mais
 
 
 
@@ -66,7 +89,7 @@ conditions(Estado, Sucessor,Pkm, Pkb, Caminho):-
 %!	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FATLA CIAR OPCAO DE QUANDO JA PASSOU NA POKEBOLA
 
 
-conditions(Estado, Sucessor, Pkm,Pkb, Caminho):-
+conditions(Estado, Sucessor, Pkm,_, Caminho):-
 	s(Estado,Sucessor), %Qualifica se o sucessor e valido.
 	not(on(Sucessor,[Estado|Caminho])), %Para nao gerar ciclos
 	not(on(Sucessor,Pkm)). %Se nao estou pisando em pokemon, entao de boa
@@ -78,10 +101,9 @@ conditions(Estado, Sucessor, Pkm,Pkb, Caminho):-
 	writeln("").*/
 
 
-
-
 %Busca por largura
 solucao_bl(Inicial,Solucao, Pkm, Pkb, Obj) :- bl([[Inicial]],Solucao, Pkm, Pkb, Obj).
+%falha ao encontrar a meta, então estende o primeiro estado até seus sucessores e os coloca no final da lista de fronteira
 bl([[Estado|Caminho]|_],[Estado|Caminho],_,_, Obj) :- Estado=Obj.
 bl([Primeiro|Outros], Solucao, Pkm, Pkb, Obj) :- estende(Primeiro,Sucessores, Pkm, Pkb),
 join(Outros,Sucessores,NovaFronteira),
@@ -112,7 +134,6 @@ archive(Solution, Pkm, Pkb):-
     close(Stream).
 
 
-
 %Path walked, list of pokemons, Result
 howMany(_,  [], 0).
 howMany(List, [Pkm|T], Res):-
@@ -128,8 +149,8 @@ main(StartingPoint, Pkm, Pkb, Obj, Solution):-
 	write("Pokebola no quadrante: "),  writeln(Pkb),
 	howMany(Solution, Pkm, Captured),
 	write("Pokemons capturados: "),   writeln(Captured),
-	obj(I),
-	write("Insignia no quadrante: "),    writeln(I),
+	%obj(I),
+	write("Insignia no quadrante: "), writeln(Obj),
 	write("Caminho do Ash: "),
 	archive(Solution, Pkm, Pkb),!.
 
@@ -137,16 +158,3 @@ main(StartingPoint, Pkm, Pkb, Obj, Solution):-
 %After that, you (in the same prompt) can call "main" function
 err(X):-
 	solucao_bl([0,0], X, [], [], [4,4]).
-
-
-
-
-
-
-
-
-
-
-
-
-
