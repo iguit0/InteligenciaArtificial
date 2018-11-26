@@ -22,9 +22,13 @@
 			<h5 id="subtitulo">Desenvolvido por: Igor & Gabriel</h5>
 		</header>
 		<div id="conteudo">
+  			<input style="padding-top: 15px; padding-bottom: 45px;" id="txtfiletoread" type="file">
+  			    <div id="filecontents"></div>
+
 			<label id="label">Caminho encontrado:</label>
-			<textarea id="input">[[[cam, cam, ash, cam, cam], [pokemon1, cam, pokemon2, cam, cam], [pokebola, cam ,cam,cam,cam], [cam,cam,pokemon3,cam,cam], [cam,cam,cam,cam,obj]],
-[[cam, ash, cam, cam, cam], [pokemon1, cam, pokemon2, cam, cam], [pokebola, cam ,cam,cam,cam], [cam,cam,pokemon3,cam,cam],[cam,cam,cam,cam,obj]],[[ash, cam, cam, cam, cam], [pokemon1, cam, pokemon2, cam, cam], [pokebola, cam ,cam,cam,cam], [cam,cam,pokemon3,cam,cam], [cam,cam,cam,cam,obj]]]</textarea>
+			<!-- [[[cam, cam, ash, cam, cam], [pokemon1, cam, pokemon2, cam, cam], [pokebola, cam ,cam,cam,cam], [cam,cam,pokemon3,cam,cam], [cam,cam,cam,cam,obj]],
+[[cam, ash, cam, cam, cam], [pokemon1, cam, pokemon2, cam, cam], [pokebola, cam ,cam,cam,cam], [cam,cam,pokemon3,cam,cam],[cam,cam,cam,cam,obj]],[[ash, cam, cam, cam, cam], [pokemon1, cam, pokemon2, cam, cam], [pokebola, cam ,cam,cam,cam], [cam,cam,pokemon3,cam,cam], [cam,cam,cam,cam,obj]]] -->
+			<textarea id="input"></textarea>
 
 			<div id="menu">
 				<input id="gerar" class="btn btn-primary btn-md" type="button" value="Gerar" onClick="gerarMapa()">
@@ -38,12 +42,38 @@
 
 		</div>
 	</div>
-			<script type="text/javascript">
-$(document).ready(function(){
-$("button").click(function(){
-    $("mapa").animate({left: '250px'});
-}); 
-});
-		</script>
 </body>
+    <script>
+
+        window.onload = function () {
+            //Check the support for the File API support
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                var fileSelected = document.getElementById('txtfiletoread');
+                fileSelected.addEventListener('change', function (e) {
+                    //Set the extension for the file
+                    var fileExtension = /text.*/;
+                    //Get the file object
+                    var fileTobeRead = fileSelected.files[0];
+                    //Check of the extension match
+                    if (fileTobeRead.type.match(fileExtension)) {
+                        //Initialize the FileReader object to read the 2file
+                        var fileReader = new FileReader();
+                        fileReader.onload = function (e) {
+                            var fileContents = document.getElementById('input');
+                            fileContents.innerText = fileReader.result;
+                        }
+                        fileReader.readAsText(fileTobeRead);
+                    }
+                    else {
+                        alert("Por favor selecione arquivo texto");
+                    }
+
+                }, false);
+            }
+            else {
+                alert("Arquivo(s) não suportado(s)");
+            }
+        }
+
+    </script>
 </html>
