@@ -102,6 +102,13 @@ find(El, [_|T], X):-
 	find(El, T, R),
 	X = R.
 
+%argumentos: caminho percorrido, lista pokemons, resultado
+howMany(_,  [], 0).
+howMany(List, [Pkm|T], Res):-
+	find(Pkm, List, R2),    % se um pokemon pertence a esta lista, entao R2 = 1
+	howMany(List, T, R3),
+	Res is R2 + R3.
+
 % Saída do caminho final em arquivo
 archive(Solution, Pkm, Pkb):-
     open("exit.txt",write, Stream),
@@ -110,13 +117,6 @@ archive(Solution, Pkm, Pkb):-
       writeln(Stream, Pkb),
      fail ; true),
     close(Stream).
-
-%argumentos: caminho percorrido, lista pokemons, resultado
-howMany(_,  [], 0).
-howMany(List, [Pkm|T], Res):-
-	find(Pkm, List, R2),    % se um pokemon pertence a esta lista, entao R2 = 1
-	howMany(List, T, R3),
-	Res is R2 + R3.
 
 %Funcao principal
 main(StartingPoint, Pkm, Pkb, Obj, Solution):-
