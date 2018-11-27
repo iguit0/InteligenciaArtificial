@@ -49,11 +49,6 @@ s([X,Y], [Xout,Y]):- X>0, Xout is X - 1.
 %baixo
 s([X,Y], [Xout,Y]):- X<4, Xout is X + 1.
 
-
-%Objectives
-%obj([4,4]).
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%[ Funções de Busca em Largura ]%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -91,7 +86,8 @@ bl([Primeiro|Outros], Solucao, Pkm, Pkb, Obj) :- estende(Primeiro,Sucessores, Pk
 join(Outros,Sucessores,NovaFronteira),
 bl(NovaFronteira,Solucao, Pkm, Pkb, Obj).
 
-% Searching
+% Procura
+% Procura sem objetivos
 % searching without objectives = WIN
 %search(_, [],_,_).
 % Receive: start Coord, RETURN, list of pokemon Coord, PkbList, Obj
@@ -99,7 +95,7 @@ bl(NovaFronteira,Solucao, Pkm, Pkb, Obj).
 search(Start, Solution, Pkm, Pkb, Obj):-
 	solucao_bl(Start, SolutionTmp, Pkm, Pkb, Obj), inv(SolutionTmp, Solution).
 
-% How Many pokemons did I get
+% contabilizar quantos pokemons peguei
 find(_, [], 0).
 find(El, [El|_], 1).
 find(El, [_|T], X):-
@@ -115,15 +111,14 @@ archive(Solution, Pkm, Pkb):-
      fail ; true),
     close(Stream).
 
-
-%Path walked, list of pokemons, Result
+%argumentos: caminho percorrido, lista pokemons, resultado
 howMany(_,  [], 0).
 howMany(List, [Pkm|T], Res):-
-	find(Pkm, List, R2),   %If that pokemon belongs to list, then R2=1
+	find(Pkm, List, R2),    % se um pokemon pertence a esta lista, entao R2 = 1
 	howMany(List, T, R3),
 	Res is R2 + R3.
 
-%Main func
+%Funcao principal
 main(StartingPoint, Pkm, Pkb, Obj, Solution):-
         search(StartingPoint, Solution, Pkm, Pkb, Obj), %search from pokeball until end
 	%join(Solution2, Solution3, Solution),
@@ -136,7 +131,7 @@ main(StartingPoint, Pkm, Pkb, Obj, Solution):-
 	write("Caminho do Ash: "),
 	archive(Solution, Pkm, Pkb),!.
 
-%Call this function and then press "W", to show all vector.
-%After that, you (in the same prompt) can call "main" function
+%Chame esta funcao primeiro e pressione "W" para mostrar todo o vetor
+% Apos isto, chame a funcao principal (main)
 err(X):-
 	solucao_bl([0,0], X, [], [], [4,4]).
