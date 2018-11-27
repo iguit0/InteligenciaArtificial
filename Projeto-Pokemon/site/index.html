@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<script src="assets/js/script.js"></script>
-		<title>Projeto IA – Pokemon</title>
+		<title>Projeto IA – Pokémon</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="icon" href="assets/icon/favicon.ico" type="image/x-icon">
@@ -11,13 +11,14 @@
 		<!-- Estilo customizado -->
 		<link rel="stylesheet" href="assets/css/style.css">
 
-		<!-- Latest compiled and minified JavaScript -->
+		<!-- Bootstrap JS e suas dependencias -->
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/bootstrap.min.js"></script>
 	</head>
 <body id="bgFundo">
 	<div id="tudo">
 		<header id="header">
+			<img src="assets/img/0.png"/><img src="assets/img/6.png"/><img src="assets/img/3.png"/><img src="assets/img/4.png"/><img src="assets/img/5.png"/><img src="assets/img/2.png"/>
 			<div id="titulo">Projeto IA – Pokémon</div>
 			<h5 id="subtitulo">Desenvolvido por: Igor & Gabriel</h5>
 		</header>
@@ -39,33 +40,32 @@
 
 			<div id="mapa"></div>
 
-
 		</div>
 	</div>
 </body>
     <script>
 
         window.onload = function () {
-            //Check the support for the File API support
+			// Verificar se tem suporte a API de Arquivo
             if (window.File && window.FileReader && window.FileList && window.Blob) {
-                var fileSelected = document.getElementById('txtfiletoread');
+                var fileSelected = document.getElementById('txtfiletoread'); // passa id origem
                 fileSelected.addEventListener('change', function (e) {
-                    //Set the extension for the file
+					// restringe a extensao do arquivo
                     var fileExtension = /text.*/;
-                    //Get the file object
+                    //Pega objeto arquivo
                     var fileTobeRead = fileSelected.files[0];
-                    //Check of the extension match
+					// verifica se eh mesmo txt
                     if (fileTobeRead.type.match(fileExtension)) {
-                        //Initialize the FileReader object to read the 2file
+						// inicializa objeto filereader para ler o segundo arquivo
                         var fileReader = new FileReader();
                         fileReader.onload = function (e) {
-                            var fileContents = document.getElementById('input');
+                            var fileContents = document.getElementById('input'); // id destino
                             fileContents.innerText = fileReader.result;
                         }
                         fileReader.readAsText(fileTobeRead);
                     }
                     else {
-                        alert("Por favor selecione arquivo texto");
+                        alert("Por favor selecione arquivo texto (.txt)");
                     }
 
                 }, false);

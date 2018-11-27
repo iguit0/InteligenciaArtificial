@@ -6,6 +6,7 @@
 #header{
     text-align: center;
     margin-top: 20px;
+    margin-bottom: 40px;
     height: 100px;
 }
 
@@ -17,9 +18,10 @@
 
 #titulo{
     padding-top: 8px;
+    padding-bottom: 3px;
     font-family: 'Century Gothic';
     color: #545454;
-    font-size: 24.5px;
+    font-size: 27.5px;
 }
 
 #subtitulo {
@@ -39,7 +41,7 @@
     max-width: 90%;
     min-height: 90px;
     margin: 0px 5%;
-    overflow-x: hidden; 
+    overflow-x: hidden;
     font-size: 12px;
     color: #545454;
 }
@@ -71,13 +73,13 @@
     border: 1px solid #545454;
     border-collapse: collapse;
     text-align: center;
-    
+
 }
 
 #pagads-td{
     border: 1px solid #545454;
     border-collapse: collapse;
-    height:70px; 
+    height:70px;
     text-align: center;
 }
 
