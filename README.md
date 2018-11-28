@@ -10,3 +10,7 @@ Assim, dados um estado inicial representando a configuração corrente do mundo 
 Para executar o programa, é necessário um interpretador e compilador dos blocos de códigos, adaptados para Prolog, onde existem uma gama de possibilidades para tal função.
 Para que o Prolog, possa mostrar em seu *prompt* a lista de caminhos completo, é necessário de utilizar a extensão da função [write/1](http://www.swi-prolog.org/FAQ/AllOutput.html), que é definida de forma própria pelo Prolog, sendo a mesma ativada após o aperto da tecla W, quando uma lista, com tamanho maior de 8 tenta ser exibida. Para auxiliar o usuário, durante a tarefa, foi criada a função err/1, que exibe uma lista longa o suficiente, para que o usuário em seguida possa apertar W e habilitar a função de escrita completa no *prompt*.
 Após chamar a função err e apertar W, está habilitado o *prompt* para exibição. Após isso, deve-se chamar a função main/5, instanciando os valores necessários. Os parâmetros seguem a seguinte ordem: Coordenada indicando estado inicial, lista de coordenadas indicando onde os pokemons se encontram no ambiente proposto, lista de coordenadas indicando locais com pokebolas, coordenada onde se encontra a insígnia.
+
+## Desenvolvedores :eyeglasses::computer:
+**[@arkfiend](https://github.com/arkfiend)**<br/>
+**[@iguit0](https://github.com/iguit0)**
