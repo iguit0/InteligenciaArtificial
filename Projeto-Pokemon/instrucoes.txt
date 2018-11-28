@@ -3,16 +3,20 @@ Com o SWI-Prolog aberto, carregamos o arquivo e invocamos método err e
 logo em seguida apertamos a tecla W (ou enter).
 Isto faz com que o mesmo não nos omita o conteúdo de listas muito grandes; irá ser de grande valia, uma vez que queremos
 mostrar o caminho. Logo após chamamos a função main passando, respectivamente: PosicaoAtual,ListaPokemons,Pokebola,Insignia,Resultado.
+Para mais detalhes, um exemplo é mostrado no arquivo de documentação. Seção 3 (Como Utilizar).
 
-No arquivo de documentação um exemplo é mostrado na seção 3 (Conclusões).
 
-INSTRUÇÕES (Website visualização) Extra:
-Abra o arquivo index.html (./site) utilizando qualquer navegador. O desenvolvimento deste surgiu com a ideia de representarmos
-a nossa busca de forma interativa. Afim de melhorar a apresentação do problema para a classe e também melhorar o dinamismo da mesma.
+INSTRUÇÕES (Website visualização) [[ Extra :) ]]
+Abra o arquivo index.html (./site) utilizando qualquer navegador. 
+É possível lido tanto de um arquivo, quanto por entrada pelo próprio usuário no campo de texto.
+Já vem predefinido com um possível caminho que nosso agente poderia tomar.
+Entretanto, o arquivo caminho1.txt (./site/caminho1.txt) é outro exemplo que também pode ser lido.
+O desenvolvimento deste surgiu com a ideia de representarmos a busca de forma interativa.
+Afim de melhorar a apresentação do problema para a classe e também melhorar o dinamismo da mesma.
 ----------------------------------------------------------
 UNIVERSIDADE FEDERAL DE VICOSA - CAMPUS RIO PARANAIBA
 DESENVOLVIDO PELOS ALUNOS: IGOR LUCIO (igor.lucio@ufv.br) & GABRIEL ALVES (gabriel.a.ferreira@ufv.br)
-POKEMON - BUSCA NO ESPACO DE ESTADOS
+POKEMON - BUSCA NO ESPAÇO DE ESTADOS
 AJUDE ASH A ENCONTRAR A INSIGNIA
 https://github.com/iguit0/Inteligencia-Artificial
 https://github.com/iguit0/Inteligencia-Artificial

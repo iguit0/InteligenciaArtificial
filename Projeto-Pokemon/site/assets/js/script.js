@@ -46,12 +46,10 @@ function gerarMapa() {
 	input = input.replace(/pokemon3/g, 5);
 	input = input.replace(/pokebola/g, 6);
 	input = input.replace(/ash/g, 0);
-	input = input.replace(/agt/g, 0);
 	input = input.replace(/cam/g, 1);
 	input = input.replace(/obj/g, 2);
 	input = input.replace(/pokemon2/g, 3);
 	input = input.replace(/pokemon1/g, 4);
-	input = input.replace(/trk/g, 8);
 	var lido = parse(input);
 	lido = lido[0];
 

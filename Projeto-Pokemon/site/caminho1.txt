@@ -1,0 +1,11 @@
+[[[cam,cam,cam,cam,ash], [pokemon1, cam, cam, cam, cam], [cam,cam,cam,cam,cam], [cam,cam,cam,cam,cam], [cam, pokemon2, cam, cam, cam]],
+[[cam,cam,cam,ash,obj], [pokemon1, cam, cam, cam, cam], [cam,cam,cam,cam,cam], [cam,cam,cam,cam,cam], [cam, pokemon2, cam, cam, cam]],
+[[cam,cam,cam,cam,obj], [pokemon1, cam, cam, ash, cam], [cam,cam,cam,cam,cam], [cam,cam,cam,cam,cam], [cam, pokemon2, cam, cam, cam]],
+[[cam,cam,cam,cam,obj], [pokemon1, cam, cam, cam, cam], [cam,cam,cam,ash,cam], [cam,cam,cam,cam,cam], [cam, pokemon2, cam, cam, cam]],
+[[cam,cam,cam,cam,obj], [pokemon1, cam, cam, cam, cam], [cam,cam,cam,cam,cam], [cam,cam,cam,ash,cam], [cam, pokemon2, cam, cam, cam]],
+[[cam,cam,cam,cam,obj], [pokemon1, cam, cam, cam, cam], [cam,cam,cam,cam,cam], [cam,cam,ash,cam,cam], [cam, pokemon2, cam, cam, cam]],
+[[cam,cam,cam,cam,obj], [pokemon1, cam, cam, cam, cam], [cam,cam,cam,cam,cam], [cam,ash,cam,cam,cam], [cam, pokemon2, cam, cam, cam]],
+[[cam,cam,cam,cam,obj], [pokemon1, cam, cam, cam, cam], [cam,ash,cam,cam,cam], [cam,pokemon3,cam,cam,cam], [cam, pokemon2, cam, cam, cam]],
+[[cam,cam,cam,cam,obj], [pokemon1, cam, cam, cam, cam], [ash,cam,cam,cam,cam], [cam,pokemon3,cam,cam,cam], [cam, pokemon2, cam, cam, cam]],
+[[cam,cam,cam,cam,obj], [pokemon1, cam, cam, cam, cam], [pokebola,cam,cam,cam,cam], [ash,pokemon3,cam,cam,cam], [cam, pokemon2, cam, cam, cam]],
+[[cam,cam,cam,cam,obj], [pokemon1, cam, cam, cam, cam], [pokebola,cam,cam,cam,cam], [cam,pokemon3,cam,cam,cam], [ash, pokemon2, cam, cam, cam]]]

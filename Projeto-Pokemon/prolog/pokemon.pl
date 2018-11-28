@@ -57,13 +57,14 @@ estende([Estado|Caminho],ListaSucessores, Pkm, Pkb):-
 	% Retorna uma lista chamada (listSsucessores)contendo todos os objetos
         % de ([Sucessor,Estado|Caminho]) que satisfazem as condicoes inpostas na linha de condicoes
 	bagof([Sucessor,Estado|Caminho], %Lista de objetos
-	        %A linha abaixo, linhas de condicoes
-	        %(  s(Estado,Sucessor),not(on(Sucessor,[Estado|Caminho])) ), %<-	                     %A linha acima, linha de condicoes
+	        % linhas de condicoes
 		(  conditions(Estado, Sucessor, Pkm, Pkb, Caminho) ),
 	      ListaSucessores),!. % Retorna uma lista de sucessores validos
 estende(_,[],_,_). %se o estado não tiver sucessor, falha e não procura mais
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%[ Condições p/ Busca ]%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 conditions(Estado, Sucessor,Pkm, Pkb, Caminho):-
 	s(Estado,Sucessor),  %Qualifica se o sucessor e valido, com os limites
 	on(Pkb, [Estado|Caminho]),
@@ -77,7 +78,6 @@ conditions(Estado, Sucessor, Pkm,_, Caminho):-
 	not(on(Sucessor,[Estado|Caminho])), %Para nao gerar ciclos
 	not(on(Sucessor,Pkm)). %Se nao estou pisando em pokemon, entao de boa
 
-
 % Busca por largura
 solucao_bl(Inicial,Solucao, Pkm, Pkb, Obj) :- bl([[Inicial]],Solucao, Pkm, Pkb, Obj).
 % falha ao encontrar a meta, então estende o primeiro estado até seus sucessores e os coloca no final da lista de fronteira
@@ -87,11 +87,7 @@ join(Outros,Sucessores,NovaFronteira),
 bl(NovaFronteira,Solucao, Pkm, Pkb, Obj).
 
 % Procura
-% Procura sem objetivos
-% searching without objectives = WIN
-%search(_, [],_,_).
-% Receive: start Coord, RETURN, list of pokemon Coord, PkbList, Obj
-%
+% Parametros: Coordenada inicial, Solucao, Lista Coordenada pokemons, lista pokebola, Objetivo
 search(Start, Solution, Pkm, Pkb, Obj):-
 	solucao_bl(Start, SolutionTmp, Pkm, Pkb, Obj), inv(SolutionTmp, Solution).
 
@@ -120,13 +116,11 @@ archive(Solution, Pkm, Pkb):-
 
 %Funcao principal
 main(StartingPoint, Pkm, Pkb, Obj, Solution):-
-        search(StartingPoint, Solution, Pkm, Pkb, Obj), %search from pokeball until end
-	%join(Solution2, Solution3, Solution),
+        search(StartingPoint, Solution, Pkm, Pkb, Obj),
 	write("Pokemons, nos quadrantes: "), writeln(Pkm),
 	write("Pokebola no quadrante: "),  writeln(Pkb),
 	howMany(Solution, Pkm, Captured),
 	write("Pokemons capturados: "),   writeln(Captured),
-	%obj(I),
 	write("Insignia no quadrante: "), writeln(Obj),
 	write("Caminho do Ash: "),
 	archive(Solution, Pkm, Pkb),!.
