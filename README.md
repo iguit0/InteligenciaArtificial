@@ -1,4 +1,5 @@
-# Projeto IA - Pokémon :8ball::boom:
+<h1 align="center">Projeto IA - Pokémon :8ball::boom:</h1>
+
 O trabalho consiste em criar um conjunto de regras na linguagem de programação Prolog que delineie um ambiente do jogo Pokémon, de forma que o protagonista possa encontrar a primeira insígnia de Kanto. Supomos a existência de um agente capaz de executar ações que modificam o estado atual de seu ambiente.
 
 O ambiente do jogo será uma tabela 5X5 com 25 posições. Ou seja, o jogador estará limitado a este mundo; não sendo possível movimentação do mesmo além das posições citadas. Não será permitida a movimentação para posições inexistentes da tabela, isto é, coordenadas em que seu X e Y sejam, respectivamente, maiores que 4 como também menores que 0.
